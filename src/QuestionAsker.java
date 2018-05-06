@@ -11,13 +11,29 @@ public class QuestionAsker {
 	String stringAnswer(String question) {
 		System.out.println(question);
 		String stringAnswer = input.nextLine();
-		if (stringAnswer.toLowerCase().equals("quit")) {
-			System.out.println("Nobody likes a quitter...");
-			System.exit(0);
-			return stringAnswer;
-		} else {
-			return stringAnswer;
+
+		// Check to see if just Enter is selected or string contains any integers
+		boolean hasInteger = true;
+		while (hasInteger == true) {
+			if (stringAnswer.toLowerCase().equals("quit")) {
+				System.out.println("Nobody likes a quitter...");
+				System.exit(0);
+			}else if (stringAnswer.equals("") || stringAnswer.equals(" ")) {
+				System.out.println("Please type in an answer.");
+				System.out.println(question);
+				stringAnswer = input.nextLine();
+			} else if (stringAnswer.contains("0") || stringAnswer.contains("1") || stringAnswer.contains("2")
+					|| stringAnswer.contains("3") || stringAnswer.contains("4") || stringAnswer.contains("5")
+					|| stringAnswer.contains("6") || stringAnswer.contains("7") || stringAnswer.contains("8")
+					|| stringAnswer.contains("9")) {
+				System.out.println("That answer should not contain a number.");
+				System.out.println(question);
+				stringAnswer = input.nextLine();
+			} else {
+				hasInteger = false;
+			}
 		}
+		return stringAnswer;
 	}
 
 	int intAnswer(String question) {
@@ -41,23 +57,6 @@ public class QuestionAsker {
 			}
 		}
 		return intValue;
-	}
-
-	boolean yesOrNo(String question) {
-		System.out.println(question);
-		while (true) {
-			String response = input.nextLine();
-			switch (response.toLowerCase()) {
-			case "y":
-			case "yes":
-				return true;
-			case "n":
-			case "no":
-				return false;
-			default:
-				System.out.println("Sorry I didn't catch that.");
-			}
-		}
 	}
 
 }
